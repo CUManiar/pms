@@ -1,44 +1,51 @@
 // UserInfo.tsx
 import React from 'react';
 import styled from 'styled-components';
+import { Theme, UserInfoProps } from '../types/types';
 import InitialLetterIcon from './InitialLetterIcon';
-import { UserInfoProps } from '../types/types';
 
 const ProfileContainer = styled.div`
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  position: relative; /* Make the container a positioning context for absolute positioning */
 `;
 
 const UserActions = styled.div`
   cursor: pointer;
 `;
 
-const ProfileTray = styled.div<{ show: boolean }>`
+const ProfileTray = styled.div<{ show: boolean; theme: Theme }>`
+  display: ${(props) => (props.show ? 'flex' : 'none')};
+  flex-direction: column;
   position: absolute;
+  top: 100%;
   right: 0;
-  // background-color: #333;
-  border: 1px solid #333;
+  background-color: ${(props) => props.theme.background};
+  border: 1px solid ${(props) => props.theme.background};
   color: #ccc;
-  box-shadow: 0 3px 12px #ccc;
+  box-shadow: 1px 1px 5px ${(props) => props.theme.textColor};
   z-index: 1;
   width: 200px;
-  border-radius: 6px;
+  border-radius: 5px;
   overflow: hidden;
   font-size: 14px;
-  display: ${(props) => (props.show ? 'block' : 'none')};
-`;
+  margin-top: 10px;
 
-const TrayItem = styled.div`
-  padding: 12px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-
-  &:hover {
-    // background-color: #f6f8fa;
+  &[show] {
+    display: flex;
   }
 `;
 
-const CursorItem = styled.div`
+const TrayItem = styled.div<{ theme: Theme }>`
+  padding: 12px;
   cursor: pointer;
+  transition: background-color 0.3s;
+  color: ${(props) => props.theme.textColor};
+
+  &:hover {
+    background-color: ${(props) => props.theme.textColor};
+    color: ${(props) => props.theme.background};
+  }
 `;
 
 const UserInfo: React.FC<UserInfoProps> = ({
@@ -46,24 +53,22 @@ const UserInfo: React.FC<UserInfoProps> = ({
   showProfileTray,
   toggleProfileTray,
   handleLogout,
-  handleLogin,
+  theme,
 }) => {
   return (
-    <div className='user_info'>
-      {username ? (
-        <ProfileContainer>
-          <UserActions onClick={toggleProfileTray}>
-            <InitialLetterIcon name={username} />
-          </UserActions>
-          <ProfileTray show={showProfileTray}>
-            <TrayItem onClick={handleLogout}>Profile</TrayItem>
-            <TrayItem onClick={handleLogout}>Logout</TrayItem>
-          </ProfileTray>
-        </ProfileContainer>
-      ) : (
-        <CursorItem onClick={handleLogin}>Login</CursorItem>
-      )}
-    </div>
+    <ProfileContainer>
+      <UserActions onClick={toggleProfileTray}>
+        <InitialLetterIcon name={username} />
+      </UserActions>
+      <ProfileTray show={showProfileTray} theme={theme}>
+        <TrayItem onClick={handleLogout} theme={theme}>
+          Profile
+        </TrayItem>
+        <TrayItem onClick={handleLogout} theme={theme}>
+          Logout
+        </TrayItem>
+      </ProfileTray>
+    </ProfileContainer>
   );
 };
 

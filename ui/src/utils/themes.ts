@@ -6,7 +6,8 @@ export const themes = {
     buttonBackground: '#ff5722',
     buttonBorder: '1px solid #ff5722',
     buttonColor: '#fff',
-    lightShadow: '#eee'
+    lightShadow: '#eee',
+    sidebarBgColor: '#ffeded',
   },
   darkTheme: {
     background: '#333',
@@ -15,6 +16,7 @@ export const themes = {
     buttonBackground: '#ff5722',
     buttonBorder: '1px solid #ff5722',
     buttonColor: '#fff',
-    lightShadow: '#2c2c2c'
+    lightShadow: '#2c2c2c',
+    sidebarBgColor: '#2f2f2f',
   },
 };

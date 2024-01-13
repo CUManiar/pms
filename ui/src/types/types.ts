@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 // types.ts
 export interface Theme {
   background: string;
@@ -6,7 +8,8 @@ export interface Theme {
   buttonBackground: string;
   buttonBorder: string;
   buttonColor: string;
-  lightShadow: string
+  lightShadow: string;
+  sidebarBgColor: string;
 }
 export interface User {
   username: string;
@@ -22,18 +25,28 @@ export interface InitialLetterIconProps {
 }
 
 export interface UserInfoProps {
-  username: string | null;
+  username: string;
   showProfileTray: boolean;
   toggleProfileTray: () => void;
   handleLogout: () => void;
-  handleLogin: () => void;
+  theme: Theme;
+  currentTheme: string;
+  handleThemeChange: () => void;
 }
 
+export interface MainContentProps {
+  theme: Theme;
+}
+
+export interface SidebarProps {
+  theme: Theme;
+  setActivePage: Dispatch<SetStateAction<string>>;
+}
 export interface ContentProps {
-  isLoggedIn: User | boolean;
+  theme: Theme;
 }
 
 export interface LoginInfo {
-  email: string,
-  password: string
+  email: string;
+  password: string;
 }

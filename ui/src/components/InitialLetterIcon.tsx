@@ -32,10 +32,18 @@ const IconContainer = styled.div<{ isHovered: boolean; bgColor: string }>`
 `;
 
 const InitialLetterIcon: React.FC<InitialLetterIconProps> = ({ name }) => {
-  const initials = name ? name.split(' ').map(i => i[0]).join('').toUpperCase() : '';
+  const initials = name
+    ? name
+        .split(' ')
+        .map((i) => i[0])
+        .join('')
+        .toUpperCase()
+    : '';
 
-  const [isHovered, setIsHovered] = useState(false);
-  const [iconBgColor, setIconBgColor] = useState(() => generateRandomColor());
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [iconBgColor, setIconBgColor] = useState<string>(() =>
+    generateRandomColor()
+  );
 
   return (
     <IconContainer
